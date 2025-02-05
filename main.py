@@ -14,6 +14,11 @@
 #
 # ///////////////////////////////////////////////////////////////
 
+import serial
+
+import serial.tools.list_ports
+
+
 # IMPORT PACKAGES AND MODULES
 # ///////////////////////////////////////////////////////////////
 from gui.uis.windows.main_window.functions_main_window import *
@@ -72,6 +77,11 @@ class MainWindow(QMainWindow):
     # Run function when btn is clicked
     # Check funtion by object name / btn_id
     # ///////////////////////////////////////////////////////////////
+    def packman(self):
+        ports = list(serial.tools.list_ports.comports())
+        for p in ports:
+            print(p)
+
     def btn_clicked(self):
         # GET BT CLICKED
         btn = SetupMainWindow.setup_btns(self)

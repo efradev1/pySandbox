@@ -45,6 +45,8 @@ from . ui_main import *
 # ///////////////////////////////////////////////////////////////
 from . functions_main_window import *
 
+from gui.widgets.py_dropdown.py_dropdown_box import PyDropDownBox
+
 # PY WINDOW
 # ///////////////////////////////////////////////////////////////
 class SetupMainWindow:
@@ -88,6 +90,14 @@ class SetupMainWindow:
             "btn_id" : "btn_new_file",
             "btn_text" : "New File",
             "btn_tooltip" : "Create new file",
+            "show_top" : True,
+            "is_active" : False
+        },
+        {
+            "btn_icon" : "icon_emoticons.svg",
+            "btn_id" : "btn_new_file",
+            "btn_text" : "Test Button",
+            "btn_tooltip" : "Efraín's Test Button",
             "show_top" : True,
             "is_active" : False
         },
@@ -246,7 +256,7 @@ class SetupMainWindow:
         themes = Themes()
         self.themes = themes.items
 
-        # LEFT COLUMN
+        # SETTINGS LEFT COLUMN
         # ///////////////////////////////////////////////////////////////
 
         # BTN 1
@@ -280,12 +290,46 @@ class SetupMainWindow:
         self.left_btn_3.setMaximumHeight(40)
         self.ui.left_column.menus.btn_3_layout.addWidget(self.left_btn_3)
 
+        # BTN 4 - Default QPushButton
+        self.left_btn_4 = PyPushButton(
+        text="Btn With Icon",
+            radius=8,
+            color=self.themes["app_color"]["text_foreground"],
+            bg_color=self.themes["app_color"]["dark_one"],
+            bg_color_hover=self.themes["app_color"]["dark_three"],
+            bg_color_pressed=self.themes["app_color"]["dark_four"]
+        )
+        self.icon = QIcon(Functions.set_svg_icon("icon_settings.svg"))
+        self.left_btn_4.setIcon(self.icon)
+        self.left_btn_4.setMaximumHeight(40)
+        self.ui.left_column.menus.btn_2_layout.addWidget(self.left_btn_4)
         # PAGES
         # ///////////////////////////////////////////////////////////////
 
         # PAGE 1 - ADD LOGO TO MAIN PAGE
-        self.logo_svg = QSvgWidget(Functions.set_svg_image("logo_home.svg"))
-        self.ui.load_pages.logo_layout.addWidget(self.logo_svg, Qt.AlignCenter, Qt.AlignCenter)
+        # self.logo_svg = QSvgWidget(Functions.set_svg_image("logo_home.svg"))
+        # self.ui.load_pages.logo_layout.addWidget(self.logo_svg, Qt.AlignCenter, Qt.AlignCenter)
+
+        # TOGGLE BUTTON
+        self.toggle_button = PyToggle(
+            width = 50,
+            bg_color = self.themes["app_color"]["dark_two"],
+            circle_color = self.themes["app_color"]["icon_color"],
+            active_color = self.themes["app_color"]["context_color"]
+        )
+        self.ui.load_pages.page_1_layout.addWidget(self.toggle_button, alignment=Qt.AlignTop | Qt.AlignLeft)
+
+        self.toggle_button.clicked.connect(self.packman)
+
+        self.test_dropdown = PyDropDownBox(
+            items=["Item 1", "Item 2", "Item 3"],
+            place_holder_text="Select an item",
+            bg_color="#333",
+            bg_color_active="#222",
+            context_color="#00ABE8"
+        )
+
+        self.ui.load_pages.page_1_layout.addWidget(self.test_dropdown)
 
         # PAGE 2
         # CIRCULAR PROGRESS 1
@@ -432,6 +476,26 @@ class SetupMainWindow:
             is_active = True
         )
 
+        # ICON BUTTON 4
+        self.icon_button_4 = PyIconButton(
+            icon_path = Functions.set_svg_icon("icon_add_user.svg"),
+            parent = self,
+            app_parent = self.ui.central_widget,
+            tooltip_text = "BTN actived! (is_actived = True)",
+            width = 40,
+            height = 40,
+            radius = 8,
+            dark_one = self.themes["app_color"]["dark_one"],
+            icon_color = self.themes["app_color"]["icon_color"],
+            icon_color_hover = self.themes["app_color"]["icon_hover"],
+            icon_color_pressed = self.themes["app_color"]["white"],
+            icon_color_active = self.themes["app_color"]["icon_active"],
+            bg_color = self.themes["app_color"]["dark_one"],
+            bg_color_hover = self.themes["app_color"]["dark_three"],
+            bg_color_pressed = self.themes["app_color"]["context_color"],
+            is_active = True
+        )
+
         # PUSH BUTTON 1
         self.push_button_1 = PyPushButton(
             text = "Button Without Icon",
@@ -537,6 +601,9 @@ class SetupMainWindow:
         self.ui.load_pages.row_3_layout.addWidget(self.icon_button_1)
         self.ui.load_pages.row_3_layout.addWidget(self.icon_button_2)
         self.ui.load_pages.row_3_layout.addWidget(self.icon_button_3)
+
+        self.ui.load_pages.row_3_layout.addWidget(self.icon_button_4)
+
         self.ui.load_pages.row_3_layout.addWidget(self.push_button_1)
         self.ui.load_pages.row_3_layout.addWidget(self.push_button_2)
         self.ui.load_pages.row_3_layout.addWidget(self.toggle_button)
@@ -566,7 +633,7 @@ class SetupMainWindow:
 
         # BTN 2
         self.right_btn_2 = PyPushButton(
-            text="Show Menu 1",
+            text="Show Menu 1", 
             radius=8,
             color=self.themes["app_color"]["text_foreground"],
             bg_color=self.themes["app_color"]["dark_one"],

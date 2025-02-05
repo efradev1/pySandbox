@@ -36,6 +36,7 @@ class Ui_LeftColumn(object):
         self.verticalLayout.setSpacing(5)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(5, 5, 5, 5)
+
         self.btn_1_widget = QWidget(self.menu_1)
         self.btn_1_widget.setObjectName(u"btn_1_widget")
         self.btn_1_widget.setMinimumSize(QSize(0, 40))
@@ -68,6 +69,28 @@ class Ui_LeftColumn(object):
         self.btn_3_layout.setContentsMargins(0, 0, 0, 0)
 
         self.verticalLayout.addWidget(self.btn_3_widget)
+
+        #NEW BUTTON
+        self.btn_4_widget = QWidget(self.menu_1)
+        self.btn_4_widget.setObjectName(u"btn_4_widget")
+        self.btn_4_widget.setMinimumSize(QSize(0, 40))
+        self.btn_4_widget.setMaximumSize(QSize(16777215, 40))
+        self.btn_4_layout = QVBoxLayout(self.btn_4_widget)
+        self.btn_4_layout.setSpacing(0)
+        self.btn_4_layout.setObjectName(u"btn_4_layout")
+        self.btn_4_layout.setContentsMargins(0, 0, 0, 0)
+
+        # Crear el botón
+        print("Creando btn_4...")
+        self.btn_4 = QPushButton(self.btn_4_widget)
+        self.btn_4.setObjectName(u"btn_4")
+        self.btn_4.setText("Nuevo Botón")
+        print("btn_4 creado")
+
+        # Agregar el botón al layout del contenedor
+        self.btn_4_layout.addWidget(self.btn_4)
+
+        self.verticalLayout.addWidget(self.btn_4_widget)
 
         self.label_1 = QLabel(self.menu_1)
         self.label_1.setObjectName(u"label_1")

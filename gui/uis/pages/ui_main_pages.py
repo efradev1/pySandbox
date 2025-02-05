@@ -16,7 +16,21 @@
 
 # IMPORT QT CORE
 # ///////////////////////////////////////////////////////////////
+from gui.widgets.py_toggle.py_toggle import PyToggle
 from qt_core import *
+from PySide6.QtCore import Qt, QPropertyAnimation
+from PySide6.QtWidgets import QPushButton
+
+from PySide6.QtWidgets import QWidget
+
+# IMPORT PY ONE DARK WIDGETS
+# ///////////////////////////////////////////////////////////////
+from gui.widgets import *
+
+# IMPORT THEME COLORS
+# ///////////////////////////////////////////////////////////////
+from gui.core.json_themes import Themes
+
 
 
 class Ui_MainPages(object):
@@ -30,6 +44,8 @@ class Ui_MainPages(object):
         self.main_pages_layout.setContentsMargins(5, 5, 5, 5)
         self.pages = QStackedWidget(MainPages)
         self.pages.setObjectName(u"pages")
+
+        #PÁGINA 1 - BIENVENIDA
         self.page_1 = QWidget()
         self.page_1.setObjectName(u"page_1")
         self.page_1.setStyleSheet(u"font-size: 14pt")
@@ -37,38 +53,63 @@ class Ui_MainPages(object):
         self.page_1_layout.setSpacing(5)
         self.page_1_layout.setObjectName(u"page_1_layout")
         self.page_1_layout.setContentsMargins(5, 5, 5, 5)
-        self.welcome_base = QFrame(self.page_1)
-        self.welcome_base.setObjectName(u"welcome_base")
-        self.welcome_base.setMinimumSize(QSize(300, 150))
-        self.welcome_base.setMaximumSize(QSize(300, 150))
-        self.welcome_base.setFrameShape(QFrame.NoFrame)
-        self.welcome_base.setFrameShadow(QFrame.Raised)
-        self.center_page_layout = QVBoxLayout(self.welcome_base)
-        self.center_page_layout.setSpacing(10)
-        self.center_page_layout.setObjectName(u"center_page_layout")
-        self.center_page_layout.setContentsMargins(0, 0, 0, 0)
-        self.logo = QFrame(self.welcome_base)
-        self.logo.setObjectName(u"logo")
-        self.logo.setMinimumSize(QSize(300, 120))
-        self.logo.setMaximumSize(QSize(300, 120))
-        self.logo.setFrameShape(QFrame.NoFrame)
-        self.logo.setFrameShadow(QFrame.Raised)
-        self.logo_layout = QVBoxLayout(self.logo)
-        self.logo_layout.setSpacing(0)
-        self.logo_layout.setObjectName(u"logo_layout")
-        self.logo_layout.setContentsMargins(0, 0, 0, 0)
 
-        self.center_page_layout.addWidget(self.logo)
+        # After page_1_layout creation and before the welcome_base
+        self.horizontal_layout = QHBoxLayout()
+        self.page_1_layout.addLayout(self.horizontal_layout)
 
-        self.label = QLabel(self.welcome_base)
-        self.label.setObjectName(u"label")
-        self.label.setAlignment(Qt.AlignCenter)
+        # Create left frame
+        self.left_frame = QFrame()
+        self.left_frame.setFrameShape(QFrame.NoFrame)
+        self.left_layout = QVBoxLayout(self.left_frame)
+        self.horizontal_layout.addWidget(self.left_frame, 1)
 
-        self.center_page_layout.addWidget(self.label)
+        # Create right frame
+        self.right_frame = QFrame()
+        self.right_frame.setFrameShape(QFrame.NoFrame)
+        self.right_layout = QVBoxLayout(self.right_frame)
+        self.horizontal_layout.addWidget(self.right_frame, 4)
+
+        # self.welcome_base = QFrame(self.page_1)
+        # self.welcome_base.setObjectName(u"welcome_base")
+        # self.welcome_base.setMinimumSize(QSize(300, 150))
+        # self.welcome_base.setMaximumSize(QSize(300, 150))
+        # self.welcome_base.setFrameShape(QFrame.NoFrame)
+        # self.welcome_base.setFrameShadow(QFrame.Raised)
+        
+        # self.center_page_layout = QVBoxLayout(self.welcome_base)
+        # self.center_page_layout.setSpacing(10)
+        # self.center_page_layout.setObjectName(u"center_page_layout")
+        # self.center_page_layout.setContentsMargins(0, 0, 0, 0)
+        # self.logo = QFrame(self.welcome_base)
+        # self.logo.setObjectName(u"logo")
+        # self.logo.setMinimumSize(QSize(300, 120))
+        # self.logo.setMaximumSize(QSize(300, 120))
+        # self.logo.setFrameShape(QFrame.NoFrame)
+        # self.logo.setFrameShadow(QFrame.Raised)
+        # self.logo_layout = QVBoxLayout(self.logo)
+        # self.logo_layout.setSpacing(0)
+        # self.logo_layout.setObjectName(u"logo_layout")
+        # self.logo_layout.setContentsMargins(0, 0, 0, 0)
+
+        # self.center_page_layout.addWidget(self.logo)
+
+        # self.label = QLabel(self.welcome_base)
+        # self.label.setObjectName(u"label")
+        # self.label.setAlignment(Qt.AlignCenter)
+
+        # self.center_page_layout.addWidget(self.label)
+
+        # Add before PyToggle creation
 
 
-        self.page_1_layout.addWidget(self.welcome_base, 0, Qt.AlignHCenter)
+              
 
+        button = QPushButton()
+        button.setText("Click me")
+        #QWindow.setCentralWidget(button)
+
+        #PÁGINA 2 - ÁREA DE DESPLAZAMIENTO
         self.pages.addWidget(self.page_1)
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
@@ -83,6 +124,7 @@ class Ui_MainPages(object):
         self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scroll_area.setWidgetResizable(True)
+        #Se crea un widget "contents" que albergará todos los widgets dentro del área de scroll.
         self.contents = QWidget()
         self.contents.setObjectName(u"contents")
         self.contents.setGeometry(QRect(0, 0, 840, 580))
@@ -168,7 +210,7 @@ class Ui_MainPages(object):
 
     def retranslateUi(self, MainPages):
         MainPages.setWindowTitle(QCoreApplication.translate("MainPages", u"Form", None))
-        self.label.setText(QCoreApplication.translate("MainPages", u"Welcome To PyOneDark GUI", None))
+        #self.label.setText(QCoreApplication.translate("MainPages", u"Welcome To PyOneDark GUI", None))
         self.title_label.setText(QCoreApplication.translate("MainPages", u"Custom Widgets Page", None))
         self.description_label.setText(QCoreApplication.translate("MainPages", u"Here will be all the custom widgets, they will be added over time on this page.\n"
 "I will try to always record a new tutorial when adding a new Widget and updating the project on Patreon before launching on GitHub and GitHub after the public release.", None))
