@@ -69,3 +69,7 @@ from . py_line_edit import PyLineEdit
 # PY TABLE WIDGET
 # ///////////////////////////////////////////////////////////////
 from . py_table_widget import PyTableWidget
+
+# PY DROPDOWN
+# ///////////////////////////////////////////////////////////////
+from .py_serial_dropdown.py_serial_dropdown import PySerialDropDown

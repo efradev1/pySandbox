@@ -32,7 +32,6 @@ from gui.widgets import *
 from gui.core.json_themes import Themes
 
 
-
 class Ui_MainPages(object):
     def setupUi(self, MainPages):
         if not MainPages.objectName():
@@ -101,9 +100,6 @@ class Ui_MainPages(object):
         # self.center_page_layout.addWidget(self.label)
 
         # Add before PyToggle creation
-
-
-              
 
         button = QPushButton()
         button.setText("Click me")

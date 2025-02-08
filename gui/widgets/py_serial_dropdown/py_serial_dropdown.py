@@ -1,10 +1,12 @@
 # ///////////////////////////////////////////////////////////////
 #
-# BY: WANDERSON M.PIMENTA (Original style)
-# Modified for QComboBox
+# This project can be used freely for all uses, as long as they maintain the
+# respective credits only in the Python scripts.
+#
 # ///////////////////////////////////////////////////////////////
 
 from qt_core import *
+import serial.tools.list_ports
 
 # STYLE
 # ///////////////////////////////////////////////////////////////
@@ -50,11 +52,9 @@ QComboBox QAbstractItemView {{
 }}
 '''
 
-class PyDropDownBox(QComboBox):
+class PySerialDropDown(QComboBox):
     def __init__(
         self,
-        items = [],
-        place_holder_text = "",
         radius = 8,
         border_size = 2,
         color = "#FFF",
@@ -65,12 +65,11 @@ class PyDropDownBox(QComboBox):
     ):
         super().__init__()
 
-        # PARAMETERS
-        if place_holder_text:
-            self.setPlaceholderText(place_holder_text)
+        # Set placeholder text
+        self.setPlaceholderText("Select COM Port")
         
-        # Add initial items
-        self.addItems(items)
+        # Load available ports
+        self.refresh_ports()
 
         # SET STYLESHEET
         self.set_stylesheet(
@@ -83,7 +82,33 @@ class PyDropDownBox(QComboBox):
             context_color
         )
 
-    # SET STYLESHEET
+    def refresh_ports(self):
+        """Refresh the list of available serial ports"""
+        self.clear()  # Clear existing items
+        ports = serial.tools.list_ports.comports()
+        
+        if not ports:
+            self.addItem("No COM ports available")
+            self.setEnabled(False)
+        else:
+            self.setEnabled(True)
+            for port in ports:
+                # Add port with description as tooltip
+                port_info = f"{port.device} - {port.description}"
+                self.addItem(port_info)
+                tooltip = f"Device: {port.device}\nDescription: {port.description}"
+                if port.manufacturer:
+                    tooltip += f"\nManufacturer: {port.manufacturer}"
+                if port.product:
+                    tooltip += f"\nProduct: {port.product}"
+                self.setItemData(self.count() - 1, tooltip, Qt.ToolTipRole)
+
+    def get_current_port(self):
+        """Get the currently selected port name only"""
+        if self.currentText() != "No COM ports available":
+            return self.currentText().split(" - ")[0]
+        return None
+
     def set_stylesheet(
         self,
         radius,
@@ -105,26 +130,3 @@ class PyDropDownBox(QComboBox):
             _context_color = context_color
         )
         self.setStyleSheet(style_format)
-
-    # Add methods to manage items
-    def add_item(self, item):
-        """Add a single item to the dropdown"""
-        self.addItem(str(item))
-
-    def add_items(self, items):
-        """Add multiple items to the dropdown"""
-        self.addItems([str(item) for item in items])
-
-    def clear_items(self):
-        """Clear all items from the dropdown"""
-        self.clear()
-
-    def get_current_item(self):
-        """Get the currently selected item"""
-        return self.currentText()
-
-    def set_current_item(self, text):
-        """Set the current item by text"""
-        index = self.findText(str(text))
-        if index >= 0:
-            self.setCurrentIndex(index)

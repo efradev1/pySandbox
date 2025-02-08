@@ -45,7 +45,7 @@ from . ui_main import *
 # ///////////////////////////////////////////////////////////////
 from . functions_main_window import *
 
-from gui.widgets.py_dropdown.py_dropdown_box import PyDropDownBox
+from gui.widgets.py_serial_dropdown.py_serial_dropdown import PySerialDropDown
 
 # PY WINDOW
 # ///////////////////////////////////////////////////////////////
@@ -321,15 +321,49 @@ class SetupMainWindow:
 
         self.toggle_button.clicked.connect(self.packman)
 
-        self.test_dropdown = PyDropDownBox(
-            items=["Item 1", "Item 2", "Item 3"],
-            place_holder_text="Select an item",
-            bg_color="#333",
-            bg_color_active="#222",
-            context_color="#00ABE8"
+        # # DROPDOWN CUSTOM WIDGET
+        # self.test_dropdown = PyDropDownBox(
+        #     items=["Item 1", "Item 2", "Item 3"],
+        #     place_holder_text="Select an item",
+        #     bg_color="#333",
+        #     bg_color_active="#222",
+        #     context_color="#00ABE8"
+        # )
+
+        #elf.ui.load_pages.page_1_layout.addWidget(self.test_dropdown)
+
+
+        # SERIAL PORT DROPDOWN
+        self.serial_port_dropdown = PySerialDropDown(
+            radius = 8,
+            border_size = 2,
+            color = self.themes["app_color"]["text_foreground"],
+            selection_color = self.themes["app_color"]["white"],
+            bg_color = self.themes["app_color"]["dark_one"],
+            bg_color_active = self.themes["app_color"]["dark_three"],
+            context_color = self.themes["app_color"]["context_color"]
         )
 
-        self.ui.load_pages.page_1_layout.addWidget(self.test_dropdown)
+        # Add refresh button for serial ports
+        self.refresh_ports_btn = PyPushButton(
+            text="Refresh Ports",
+            radius=8,
+            color=self.themes["app_color"]["text_foreground"],
+            bg_color=self.themes["app_color"]["dark_one"],
+            bg_color_hover=self.themes["app_color"]["dark_three"],
+            bg_color_pressed=self.themes["app_color"]["dark_four"]
+        )
+        self.refresh_ports_btn.setMaximumHeight(40)
+        self.refresh_ports_btn.clicked.connect(self.serial_port_dropdown.refresh_ports)
+
+        # Create a horizontal layout for the serial port controls
+        self.serial_layout = QHBoxLayout()
+        self.serial_layout.addWidget(self.serial_port_dropdown)
+        self.serial_layout.addWidget(self.refresh_ports_btn)
+
+        # Add the serial layout to the page layout
+        self.ui.load_pages.page_1_layout.addLayout(self.serial_layout)
+
 
         # PAGE 2
         # CIRCULAR PROGRESS 1
