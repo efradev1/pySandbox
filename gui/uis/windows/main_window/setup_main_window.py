@@ -64,59 +64,59 @@ class SetupMainWindow:
         {
             "btn_icon" : "icon_home.svg",
             "btn_id" : "btn_home",
-            "btn_text" : "Home",
-            "btn_tooltip" : "Home page",
+            "btn_text" : "SandBox",
+            "btn_tooltip" : "SandBox",
             "show_top" : True,
             "is_active" : True
         },
-        {
-            "btn_icon" : "icon_widgets.svg",
-            "btn_id" : "btn_widgets",
-            "btn_text" : "Show Custom Widgets",
-            "btn_tooltip" : "Show custom widgets",
-            "show_top" : True,
-            "is_active" : False
-        },
-        {
-            "btn_icon" : "icon_add_user.svg",
-            "btn_id" : "btn_add_user",
-            "btn_text" : "Add Users",
-            "btn_tooltip" : "Add users",
-            "show_top" : True,
-            "is_active" : False
-        },
-        {
-            "btn_icon" : "icon_file.svg",
-            "btn_id" : "btn_new_file",
-            "btn_text" : "New File",
-            "btn_tooltip" : "Create new file",
-            "show_top" : True,
-            "is_active" : False
-        },
-        {
-            "btn_icon" : "icon_emoticons.svg",
-            "btn_id" : "btn_new_file",
-            "btn_text" : "Test Button",
-            "btn_tooltip" : "Efraín's Test Button",
-            "show_top" : True,
-            "is_active" : False
-        },
-        {
-            "btn_icon" : "icon_folder_open.svg",
-            "btn_id" : "btn_open_file",
-            "btn_text" : "Open File",
-            "btn_tooltip" : "Open file",
-            "show_top" : True,
-            "is_active" : False
-        },
-        {
-            "btn_icon" : "icon_save.svg",
-            "btn_id" : "btn_save",
-            "btn_text" : "Save File",
-            "btn_tooltip" : "Save file",
-            "show_top" : True,
-            "is_active" : False
-        },
+        # {
+        #     "btn_icon" : "icon_widgets.svg",
+        #     "btn_id" : "btn_widgets",
+        #     "btn_text" : "Show Custom Widgets",
+        #     "btn_tooltip" : "Show custom widgets",
+        #     "show_top" : True,
+        #     "is_active" : False
+        # },
+        # {
+        #     "btn_icon" : "icon_add_user.svg",
+        #     "btn_id" : "btn_add_user",
+        #     "btn_text" : "Add Users",
+        #     "btn_tooltip" : "Add users",
+        #     "show_top" : True,
+        #     "is_active" : False
+        # },
+        # {
+        #     "btn_icon" : "icon_file.svg",
+        #     "btn_id" : "btn_new_file",
+        #     "btn_text" : "New File",
+        #     "btn_tooltip" : "Create new file",
+        #     "show_top" : True,
+        #     "is_active" : False
+        # },
+        # {
+        #     "btn_icon" : "icon_emoticons.svg",
+        #     "btn_id" : "btn_new_file",
+        #     "btn_text" : "Test Button",
+        #     "btn_tooltip" : "Efraín's Test Button",
+        #     "show_top" : True,
+        #     "is_active" : False
+        # },
+        # {
+        #     "btn_icon" : "icon_folder_open.svg",
+        #     "btn_id" : "btn_open_file",
+        #     "btn_text" : "Open File",
+        #     "btn_tooltip" : "Open file",
+        #     "show_top" : True,
+        #     "is_active" : False
+        # },
+        # {
+        #     "btn_icon" : "icon_save.svg",
+        #     "btn_id" : "btn_save",
+        #     "btn_text" : "Save File",
+        #     "btn_tooltip" : "Save file",
+        #     "show_top" : True,
+        #     "is_active" : False
+        # },
         {
             "btn_icon" : "icon_info.svg",
             "btn_id" : "btn_info",
@@ -308,11 +308,10 @@ class SetupMainWindow:
         # ///////////////////////////////////////////////////////////////
 
         # PAGE 1 - ADD LOGO TO MAIN PAGE
-        # self.logo_svg = QSvgWidget(Functions.set_svg_image("logo_home.svg"))
-        # self.ui.load_pages.logo_layout.addWidget(self.logo_svg, Qt.AlignCenter, Qt.AlignCenter)
 
         # Create a horizontal layout for the top controls
         self.top_layout = QHBoxLayout()
+        self.top_layoutRight = QHBoxLayout()
 
         # TOGGLE BUTTON
         self.toggle_button = PyToggle(
@@ -321,21 +320,8 @@ class SetupMainWindow:
             circle_color = self.themes["app_color"]["icon_color"],
             active_color = self.themes["app_color"]["context_color"]
         )
-        #self.ui.load_pages.page_1_layout.addWidget(self.toggle_button, alignment=Qt.AlignTop | Qt.AlignLeft)
 
         self.toggle_button.clicked.connect(self.packman)
-
-        # # DROPDOWN CUSTOM WIDGET
-        # self.test_dropdown = PyDropDownBox(
-        #     items=["Item 1", "Item 2", "Item 3"],
-        #     place_holder_text="Select an item",
-        #     bg_color="#333",
-        #     bg_color_active="#222",
-        #     context_color="#00ABE8"
-        # )
-
-        #elf.ui.load_pages.page_1_layout.addWidget(self.test_dropdown)
-
 
         # SERIAL PORT DROPDOWN
         self.serial_port_dropdown = PySerialDropDown(
@@ -371,17 +357,26 @@ class SetupMainWindow:
         # Set alignment for the widgets in the horizontal layout
         self.top_layout.setAlignment(Qt.AlignTop | Qt.AlignLeft)
 
-        # self.ui.load_pages.page_1_layout.addWidget(self.serial_port_dropdown, alignment=Qt.AlignTop | Qt.AlignLeft)
-        # self.ui.load_pages.page_1_layout.addWidget(self.refresh_ports_btn, alignment=Qt.AlignTop | Qt.AlignLeft)
+        ############ PAGE 1 RIGHT LAYAOUT ############
 
-        # # Create a horizontal layout for the serial port controls
-        # self.serial_layout = QHBoxLayout()
-        # self.serial_layout.addWidget(self.serial_port_dropdown)
-        # self.serial_layout.addWidget(self.refresh_ports_btn)
+        # CIRCULAR PROGRESS 3 PAGE 1 RIGHT
+        self.circular_progress_3 = PyCircularProgress(
+            value = 75,
+            progress_width = 2,
+            progress_color = self.themes["app_color"]["pink"],
+            text_color = self.themes["app_color"]["white"],
+            font_size = 14,
+            bg_color = self.themes["app_color"]["bg_three"]
+        )
+        self.circular_progress_3.setFixedSize(140,140)
 
-        # # Add the serial layout to the page layout
-        # self.ui.load_pages.page_1_layout.addLayout(self.serial_layout)
+        self.top_layoutRight.addWidget(self.circular_progress_3)
 
+        # Add the horizontal layout to the page layout
+        self.ui.load_pages.page_1_layout.addLayout(self.top_layoutRight)
+
+        # Set alignment for the widgets in the horizontal layout
+        self.top_layoutRight.setAlignment(Qt.AlignTop | Qt.AlignCenter)
 
         # PAGE 2
         # CIRCULAR PROGRESS 1
