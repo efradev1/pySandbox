@@ -303,12 +303,16 @@ class SetupMainWindow:
         self.left_btn_4.setIcon(self.icon)
         self.left_btn_4.setMaximumHeight(40)
         self.ui.left_column.menus.btn_2_layout.addWidget(self.left_btn_4)
+
         # PAGES
         # ///////////////////////////////////////////////////////////////
 
         # PAGE 1 - ADD LOGO TO MAIN PAGE
         # self.logo_svg = QSvgWidget(Functions.set_svg_image("logo_home.svg"))
         # self.ui.load_pages.logo_layout.addWidget(self.logo_svg, Qt.AlignCenter, Qt.AlignCenter)
+
+        # Create a horizontal layout for the top controls
+        self.top_layout = QHBoxLayout()
 
         # TOGGLE BUTTON
         self.toggle_button = PyToggle(
@@ -317,7 +321,7 @@ class SetupMainWindow:
             circle_color = self.themes["app_color"]["icon_color"],
             active_color = self.themes["app_color"]["context_color"]
         )
-        self.ui.load_pages.page_1_layout.addWidget(self.toggle_button, alignment=Qt.AlignTop | Qt.AlignLeft)
+        #self.ui.load_pages.page_1_layout.addWidget(self.toggle_button, alignment=Qt.AlignTop | Qt.AlignLeft)
 
         self.toggle_button.clicked.connect(self.packman)
 
@@ -356,13 +360,27 @@ class SetupMainWindow:
         self.refresh_ports_btn.setMaximumHeight(40)
         self.refresh_ports_btn.clicked.connect(self.serial_port_dropdown.refresh_ports)
 
-        # Create a horizontal layout for the serial port controls
-        self.serial_layout = QHBoxLayout()
-        self.serial_layout.addWidget(self.serial_port_dropdown)
-        self.serial_layout.addWidget(self.refresh_ports_btn)
+        # Add widgets to the horizontal layout
+        self.top_layout.addWidget(self.toggle_button)
+        self.top_layout.addWidget(self.serial_port_dropdown)
+        self.top_layout.addWidget(self.refresh_ports_btn)
 
-        # Add the serial layout to the page layout
-        self.ui.load_pages.page_1_layout.addLayout(self.serial_layout)
+        # Add the horizontal layout to the page layout
+        self.ui.load_pages.page_1_layout.addLayout(self.top_layout)
+
+        # Set alignment for the widgets in the horizontal layout
+        self.top_layout.setAlignment(Qt.AlignTop | Qt.AlignLeft)
+
+        # self.ui.load_pages.page_1_layout.addWidget(self.serial_port_dropdown, alignment=Qt.AlignTop | Qt.AlignLeft)
+        # self.ui.load_pages.page_1_layout.addWidget(self.refresh_ports_btn, alignment=Qt.AlignTop | Qt.AlignLeft)
+
+        # # Create a horizontal layout for the serial port controls
+        # self.serial_layout = QHBoxLayout()
+        # self.serial_layout.addWidget(self.serial_port_dropdown)
+        # self.serial_layout.addWidget(self.refresh_ports_btn)
+
+        # # Add the serial layout to the page layout
+        # self.ui.load_pages.page_1_layout.addLayout(self.serial_layout)
 
 
         # PAGE 2

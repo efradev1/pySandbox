@@ -53,21 +53,21 @@ class Ui_MainPages(object):
         self.page_1_layout.setObjectName(u"page_1_layout")
         self.page_1_layout.setContentsMargins(5, 5, 5, 5)
 
-        # After page_1_layout creation and before the welcome_base
-        self.horizontal_layout = QHBoxLayout()
-        self.page_1_layout.addLayout(self.horizontal_layout)
+        # # After page_1_layout creation and before the welcome_base
+        # self.horizontal_layout = QHBoxLayout()
+        # self.page_1_layout.addLayout(self.horizontal_layout)
 
-        # Create left frame
-        self.left_frame = QFrame()
-        self.left_frame.setFrameShape(QFrame.NoFrame)
-        self.left_layout = QVBoxLayout(self.left_frame)
-        self.horizontal_layout.addWidget(self.left_frame, 1)
+        # # Create left frame
+        # self.left_frame = QFrame()
+        # self.left_frame.setFrameShape(QFrame.NoFrame)
+        # self.left_layout = QVBoxLayout(self.left_frame)
+        # self.horizontal_layout.addWidget(self.left_frame, 4)
 
-        # Create right frame
-        self.right_frame = QFrame()
-        self.right_frame.setFrameShape(QFrame.NoFrame)
-        self.right_layout = QVBoxLayout(self.right_frame)
-        self.horizontal_layout.addWidget(self.right_frame, 4)
+        # # Create right frame
+        # self.right_frame = QFrame()
+        # self.right_frame.setFrameShape(QFrame.NoFrame)
+        # self.right_layout = QVBoxLayout(self.right_frame)
+        # self.horizontal_layout.addWidget(self.right_frame, 4)
 
         # self.welcome_base = QFrame(self.page_1)
         # self.welcome_base.setObjectName(u"welcome_base")
