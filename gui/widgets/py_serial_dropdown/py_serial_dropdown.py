@@ -69,7 +69,7 @@ class PySerialDropDown(QComboBox):
         self.setPlaceholderText("Select COM Port")
         
         # Load available ports
-        self.refresh_ports()
+        #self.refresh_ports()
 
         # SET STYLESHEET
         self.set_stylesheet(
@@ -81,33 +81,6 @@ class PySerialDropDown(QComboBox):
             bg_color_active,
             context_color
         )
-
-    def refresh_ports(self):
-        """Refresh the list of available serial ports"""
-        self.clear()  # Clear existing items
-        ports = serial.tools.list_ports.comports()
-        
-        if not ports:
-            self.addItem("No COM ports available")
-            self.setEnabled(False)
-        else:
-            self.setEnabled(True)
-            for port in ports:
-                # Add port with description as tooltip
-                port_info = f"{port.device} - {port.description}"
-                self.addItem(port_info)
-                tooltip = f"Device: {port.device}\nDescription: {port.description}"
-                if port.manufacturer:
-                    tooltip += f"\nManufacturer: {port.manufacturer}"
-                if port.product:
-                    tooltip += f"\nProduct: {port.product}"
-                self.setItemData(self.count() - 1, tooltip, Qt.ToolTipRole)
-
-    def get_current_port(self):
-        """Get the currently selected port name only"""
-        if self.currentText() != "No COM ports available":
-            return self.currentText().split(" - ")[0]
-        return None
 
     def set_stylesheet(
         self,

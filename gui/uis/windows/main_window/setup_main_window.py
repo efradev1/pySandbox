@@ -69,22 +69,22 @@ class SetupMainWindow:
             "show_top" : True,
             "is_active" : True
         },
-        # {
-        #     "btn_icon" : "icon_widgets.svg",
-        #     "btn_id" : "btn_widgets",
-        #     "btn_text" : "Show Custom Widgets",
-        #     "btn_tooltip" : "Show custom widgets",
-        #     "show_top" : True,
-        #     "is_active" : False
-        # },
-        # {
-        #     "btn_icon" : "icon_add_user.svg",
-        #     "btn_id" : "btn_add_user",
-        #     "btn_text" : "Add Users",
-        #     "btn_tooltip" : "Add users",
-        #     "show_top" : True,
-        #     "is_active" : False
-        # },
+        {
+            "btn_icon" : "icon_widgets.svg",
+            "btn_id" : "btn_widgets",
+            "btn_text" : "Show Custom Widgets",
+            "btn_tooltip" : "Show custom widgets",
+            "show_top" : True,
+            "is_active" : False
+        },
+        {
+            "btn_icon" : "icon_add_user.svg",
+            "btn_id" : "btn_add_user",
+            "btn_text" : "Add Users",
+            "btn_tooltip" : "Add users",
+            "show_top" : True,
+            "is_active" : False
+        },
         # {
         #     "btn_icon" : "icon_file.svg",
         #     "btn_id" : "btn_new_file",
@@ -328,6 +328,13 @@ class SetupMainWindow:
         # Add the frames to the top layout
         self.top_layout.addWidget(self.left_frame)
 
+
+        #CREATING TOP ROW01
+        self.top_row01 = QHBoxLayout()
+        self.top_row01.setObjectName(u"row_1_layout")
+        #ADDING THE TOP ROW TO THE LEFT FRAME LAYOUT
+        self.left_frame_layout.addLayout(self.top_row01)
+
         # TOGGLE BUTTON
         self.toggle_button = PyToggle(
             width = 50,
@@ -335,8 +342,23 @@ class SetupMainWindow:
             circle_color = self.themes["app_color"]["icon_color"],
             active_color = self.themes["app_color"]["context_color"]
         )
+        text_label = QLabel("Arm")
+        text_label.setStyleSheet("color: white;")
+        text_label.setAlignment(Qt.AlignTop | Qt.AlignLeft)
 
+        # Add widgets to the right frame (example widget)
+        self.top_row01.addWidget(self.toggle_button)
+        self.top_row01.addWidget(text_label)
+
+        #Connecting the toggle with a function
         self.toggle_button.clicked.connect(self.packman)
+
+
+        #CREATING TOP ROW02
+        self.top_row02 = QHBoxLayout()
+        self.top_row02.setObjectName(u"row_2_layout")
+        #ADDING THE TOP ROW TO THE LEFT FRAME LAYOUT
+        self.left_frame_layout.addLayout(self.top_row02)
 
         # SERIAL PORT DROPDOWN
         self.serial_port_dropdown = PySerialDropDown(
@@ -359,13 +381,12 @@ class SetupMainWindow:
             bg_color_pressed=self.themes["app_color"]["dark_four"]
         )
         self.refresh_ports_btn.setMaximumHeight(40)
-        self.refresh_ports_btn.clicked.connect(self.serial_port_dropdown.refresh_ports)
-
+        self.refresh_ports_btn.clicked.connect(self.serial_port_dropdown)
+        
 
         # ADD TOGGLE, DROPDOWN AND REFRESH BUTTON TO LEFT FRAME
-        self.left_frame_layout.addWidget(self.toggle_button)
-        self.left_frame_layout.addWidget(self.serial_port_dropdown)
-        self.left_frame_layout.addWidget(self.refresh_ports_btn)
+        self.top_row02.addWidget(self.serial_port_dropdown)
+        self.top_row02.addWidget(self.refresh_ports_btn)
 
         # Set alignment for the widgets in the horizontal layout
         self.left_frame_layout.setAlignment(Qt.AlignTop | Qt.AlignLeft)
