@@ -311,7 +311,22 @@ class SetupMainWindow:
 
         # Create a horizontal layout for the top controls
         self.top_layout = QHBoxLayout()
-        self.top_layoutRight = QHBoxLayout()
+
+        # Add the horizontal layout to the page layout
+        self.ui.load_pages.page_1_layout.addLayout(self.top_layout)
+
+        ############ PAGE 1 LEFT FRAME ############
+
+        # Create the left frame
+        self.left_frame = QFrame()
+        self.left_frame.setFrameShape(QFrame.StyledPanel)
+        self.left_frame.setFrameShadow(QFrame.Raised)
+        self.left_frame_layout = QVBoxLayout()  # You can choose QHBoxLayout or QVBoxLayout as needed
+        self.left_frame.setLayout(self.left_frame_layout)
+        self.left_frame.setStyleSheet("border: 1px solid white;")
+
+        # Add the frames to the top layout
+        self.top_layout.addWidget(self.left_frame)
 
         # TOGGLE BUTTON
         self.toggle_button = PyToggle(
@@ -346,18 +361,27 @@ class SetupMainWindow:
         self.refresh_ports_btn.setMaximumHeight(40)
         self.refresh_ports_btn.clicked.connect(self.serial_port_dropdown.refresh_ports)
 
-        # Add widgets to the horizontal layout
-        self.top_layout.addWidget(self.toggle_button)
-        self.top_layout.addWidget(self.serial_port_dropdown)
-        self.top_layout.addWidget(self.refresh_ports_btn)
 
-        # Add the horizontal layout to the page layout
-        self.ui.load_pages.page_1_layout.addLayout(self.top_layout)
+        # ADD TOGGLE, DROPDOWN AND REFRESH BUTTON TO LEFT FRAME
+        self.left_frame_layout.addWidget(self.toggle_button)
+        self.left_frame_layout.addWidget(self.serial_port_dropdown)
+        self.left_frame_layout.addWidget(self.refresh_ports_btn)
 
         # Set alignment for the widgets in the horizontal layout
-        self.top_layout.setAlignment(Qt.AlignTop | Qt.AlignLeft)
+        self.left_frame_layout.setAlignment(Qt.AlignTop | Qt.AlignLeft)
 
-        ############ PAGE 1 RIGHT LAYAOUT ############
+        ############ PAGE 1 RIGHT FRAME ############
+
+        # Create the right frame
+        self.right_frame = QFrame()
+        self.right_frame.setFrameShape(QFrame.StyledPanel)
+        self.right_frame.setFrameShadow(QFrame.Raised)
+        self.right_frame_layout = QVBoxLayout()  # You can choose QHBoxLayout or QVBoxLayout as needed
+        self.right_frame.setLayout(self.right_frame_layout)
+        self.right_frame.setStyleSheet("border: 1px solid white;")
+
+        # Add the frames to the top layout
+        self.top_layout.addWidget(self.right_frame)
 
         # CIRCULAR PROGRESS 3 PAGE 1 RIGHT
         self.circular_progress_3 = PyCircularProgress(
@@ -370,13 +394,11 @@ class SetupMainWindow:
         )
         self.circular_progress_3.setFixedSize(140,140)
 
-        self.top_layoutRight.addWidget(self.circular_progress_3)
+        # Add widgets to the right frame (example widget)
+        self.right_frame_layout.addWidget(self.circular_progress_3)
 
-        # Add the horizontal layout to the page layout
-        self.ui.load_pages.page_1_layout.addLayout(self.top_layoutRight)
-
-        # Set alignment for the widgets in the horizontal layout
-        self.top_layoutRight.setAlignment(Qt.AlignTop | Qt.AlignCenter)
+        # Set alignment for the widgets in the frame
+        self.right_frame_layout.setAlignment(Qt.AlignTop | Qt.AlignRight)
 
         # PAGE 2
         # CIRCULAR PROGRESS 1
