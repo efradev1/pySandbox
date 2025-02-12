@@ -16,11 +16,21 @@
 
 # IMPORT QT CORE
 # ///////////////////////////////////////////////////////////////
+from gui.widgets.py_toggle.py_toggle import PyToggle
 from qt_core import *
+
+# IMPORT SETTINGS
+# ///////////////////////////////////////////////////////////////
+from gui.core.json_settings import Settings
+
+# IMPORT THEME COLORS
+# ///////////////////////////////////////////////////////////////
+from gui.core.json_themes import Themes
 
 
 class Ui_RightColumn(object):
     def setupUi(self, RightColumn):
+        self.themes = Themes().items
         if not RightColumn.objectName():
             RightColumn.setObjectName(u"RightColumn")
         RightColumn.resize(240, 600)
@@ -47,6 +57,21 @@ class Ui_RightColumn(object):
 
         self.verticalLayout.addWidget(self.btn_1_widget)
 
+        # TOGGLE BUTTON
+        self.toggle_button = PyToggle(
+            width = 50,
+            bg_color = self.themes["app_color"]["dark_two"],
+            circle_color = self.themes["app_color"]["icon_color"],
+            active_color = self.themes["app_color"]["context_color"]
+        )
+        text_label = QLabel("Arm")
+        text_label.setStyleSheet("color: white;")
+        text_label.setAlignment(Qt.AlignTop | Qt.AlignLeft)
+
+        # Add widgets to the right frame (example widget)
+        self.verticalLayout.addWidget(self.toggle_button)
+        self.verticalLayout.addWidget(text_label)
+
         self.label_1 = QLabel(self.menu_1)
         self.label_1.setObjectName(u"label_1")
         font = QFont()
@@ -56,6 +81,38 @@ class Ui_RightColumn(object):
         self.label_1.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.label_1)
+
+        # Create frame 1
+        self.frame_01 = QFrame()
+        self.frame_01.setFrameShape(QFrame.StyledPanel)
+        self.frame_01.setFrameShadow(QFrame.Raised)
+        self.frame_01_layout = QVBoxLayout()  # You can choose QHBoxLayout or QVBoxLayout as needed
+        self.frame_01.setLayout(self.frame_01_layout)
+        self.frame_01.setStyleSheet("border: 1px solid white;")
+
+        # # Modifying the frame's position
+        # self.verticalLayout.insertWidget(1, self.frame_01)
+        
+        # Set fixed height if needed
+        self.frame_01.setFixedHeight(250)
+
+        # Add frame 1 to the layout
+        self.verticalLayout.addWidget(self.frame_01)
+
+        # Create frame 2
+        self.frame_02 = QFrame()
+        self.frame_02.setFrameShape(QFrame.StyledPanel)
+        self.frame_02.setFrameShadow(QFrame.Raised)
+        self.frame_02_layout = QVBoxLayout()  # You can choose QHBoxLayout or QVBoxLayout as needed
+        self.frame_02.setLayout(self.frame_01_layout)
+        self.frame_02.setStyleSheet("border: 1px solid white;")
+
+        # Set fixed height if needed
+        self.frame_02.setFixedHeight(250)
+
+        # Add frame 1 to the layout
+        self.verticalLayout.addWidget(self.frame_02)
+
 
         self.menus.addWidget(self.menu_1)
         self.menu_2 = QWidget()
@@ -109,7 +166,7 @@ class Ui_RightColumn(object):
 
     def retranslateUi(self, RightColumn):
         RightColumn.setWindowTitle(QCoreApplication.translate("RightColumn", u"Form", None))
-        self.label_1.setText(QCoreApplication.translate("RightColumn", u"Menu 1 - Right Menu", None))
+        #self.label_1.setText(QCoreApplication.translate("RightColumn", u"Menu 1 - Right Menu", None))
         self.label_2.setText(QCoreApplication.translate("RightColumn", u"Menu 2 - Right Menu", None))
         self.label_3.setText(QCoreApplication.translate("RightColumn", u"This is just an example menu.\n"
 "Add Qt Widgets or your custom widgets here.", None))

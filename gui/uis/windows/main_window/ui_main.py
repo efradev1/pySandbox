@@ -53,6 +53,7 @@ from gui.widgets.py_credits_bar.py_credits import PyCredits
 # PY WINDOW
 # ///////////////////////////////////////////////////////////////
 class UI_MainWindow(object):
+
     def setup_ui(self, parent):
         if not parent.objectName():
             parent.setObjectName("MainWindow")

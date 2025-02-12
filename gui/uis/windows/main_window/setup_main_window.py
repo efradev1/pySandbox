@@ -17,6 +17,7 @@
 # IMPORT PACKAGES AND MODULES
 # ///////////////////////////////////////////////////////////////
 from gui.widgets.py_table_widget.py_table_widget import PyTableWidget
+from main import MainWindow
 from . functions_main_window import *
 import sys
 import os
@@ -46,6 +47,8 @@ from . ui_main import *
 from . functions_main_window import *
 
 from gui.widgets.py_serial_dropdown.py_serial_dropdown import PySerialDropDown
+
+# IMPORT MAIN WINDOW CLASS
 
 # PY WINDOW
 # ///////////////////////////////////////////////////////////////
@@ -370,6 +373,9 @@ class SetupMainWindow:
             bg_color_active = self.themes["app_color"]["dark_three"],
             context_color = self.themes["app_color"]["context_color"]
         )
+        # Populate the dropdown with available COM ports
+        #self.serial_port_dropdown.connect(self.list_com_ports)
+        #self.serial_port_dropdown.add_items()
 
         # Add refresh button for serial ports
         self.refresh_ports_btn = PyPushButton(
@@ -381,8 +387,7 @@ class SetupMainWindow:
             bg_color_pressed=self.themes["app_color"]["dark_four"]
         )
         self.refresh_ports_btn.setMaximumHeight(40)
-        self.refresh_ports_btn.clicked.connect(self.serial_port_dropdown)
-        
+        #self.refresh_ports_btn.clicked.connect(self.serial_port_dropdown.refresh_ports)
 
         # ADD TOGGLE, DROPDOWN AND REFRESH BUTTON TO LEFT FRAME
         self.top_row02.addWidget(self.serial_port_dropdown)
@@ -738,6 +743,8 @@ class SetupMainWindow:
             self.ui.right_column.menu_1
         ))
         self.ui.right_column.btn_2_layout.addWidget(self.right_btn_2)
+
+        
 
         # ///////////////////////////////////////////////////////////////
         # END - EXAMPLE CUSTOM WIDGETS
