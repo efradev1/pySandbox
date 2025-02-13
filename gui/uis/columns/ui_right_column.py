@@ -57,21 +57,6 @@ class Ui_RightColumn(object):
 
         self.verticalLayout.addWidget(self.btn_1_widget)
 
-        # TOGGLE BUTTON
-        self.toggle_button = PyToggle(
-            width = 50,
-            bg_color = self.themes["app_color"]["dark_two"],
-            circle_color = self.themes["app_color"]["icon_color"],
-            active_color = self.themes["app_color"]["context_color"]
-        )
-        text_label = QLabel("Arm")
-        text_label.setStyleSheet("color: white;")
-        text_label.setAlignment(Qt.AlignTop | Qt.AlignLeft)
-
-        # Add widgets to the right frame (example widget)
-        self.verticalLayout.addWidget(self.toggle_button)
-        self.verticalLayout.addWidget(text_label)
-
         self.label_1 = QLabel(self.menu_1)
         self.label_1.setObjectName(u"label_1")
         font = QFont()
@@ -82,6 +67,65 @@ class Ui_RightColumn(object):
 
         self.verticalLayout.addWidget(self.label_1)
 
+        # /////////////////////////
+        #Box1 for Toggle and label "Arm"
+        self.box01 = QHBoxLayout()
+        self.box01.setObjectName(u"box_1_layout")
+        #Adding box 1 to vertical layout
+        self.verticalLayout.addLayout(self.box01)
+
+        # TOGGLE BUTTON
+        self.toggle_button = PyToggle(
+            width = 50,
+            bg_color = self.themes["app_color"]["dark_two"],
+            circle_color = self.themes["app_color"]["icon_color"],
+            active_color = self.themes["app_color"]["context_color"]
+        )
+        text_label = QLabel("Arm")
+        text_label.setStyleSheet("color: white; font-size: 20px;")
+        text_label.setAlignment(Qt.AlignTop | Qt.AlignLeft)
+
+        # Add widgets to Box1
+        self.box01.addWidget(self.toggle_button)
+        self.box01.addWidget(text_label)
+
+        # /////////////////////////
+
+        # /////////////////////////
+        #BOX2 for motor 1 label
+        self.box02 = QHBoxLayout()
+        self.box02.setObjectName(u"box_2_layout")
+
+        #Adding box 2 to vertical layout
+        self.verticalLayout.addLayout(self.box02)
+
+        #Label for Motor 1
+        self.label_motor1 = QLabel("Motor 1:")
+        self.label_motor1.setObjectName(u"label_motor1")
+        font = QFont()
+        font.setPointSize(16)
+        self.label_motor1.setFont(font)
+        self.label_motor1.setStyleSheet(u"color: white; font-size: 20px;")
+        self.label_motor1.setAlignment(Qt.AlignLeft)
+        #Adding the label to box 2
+        self.box02.addWidget(self.label_motor1)
+
+        #Label for motor status
+        self.label_motor_status = QLabel("Disconnected")
+        self.label_motor_status.setObjectName(u"label_motor1")
+        font = QFont()
+        font.setPointSize(16)
+        self.label_motor_status.setFont(font)
+        self.label_motor_status.setStyleSheet(u"color: white; font-size: 20px;")
+        self.label_motor_status.setAlignment(Qt.AlignRight)
+        #Adding the label to box 2
+        self.box02.addWidget(self.label_motor_status)
+
+
+
+
+
+        # /////////////////////////
         # Create frame 1
         self.frame_01 = QFrame()
         self.frame_01.setFrameShape(QFrame.StyledPanel)
@@ -94,7 +138,7 @@ class Ui_RightColumn(object):
         # self.verticalLayout.insertWidget(1, self.frame_01)
         
         # Set fixed height if needed
-        self.frame_01.setFixedHeight(250)
+        self.frame_01.setFixedHeight(230)
 
         # Add frame 1 to the layout
         self.verticalLayout.addWidget(self.frame_01)
@@ -108,7 +152,7 @@ class Ui_RightColumn(object):
         self.frame_02.setStyleSheet("border: 1px solid white;")
 
         # Set fixed height if needed
-        self.frame_02.setFixedHeight(250)
+        self.frame_02.setFixedHeight(230)
 
         # Add frame 1 to the layout
         self.verticalLayout.addWidget(self.frame_02)

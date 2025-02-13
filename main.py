@@ -14,8 +14,8 @@
 #
 # ///////////////////////////////////////////////////////////////
 
+from tkinter.ttk import Combobox
 import serial
-
 import serial.tools.list_ports
 
 
@@ -81,6 +81,40 @@ class MainWindow(QMainWindow):
         ports = list(serial.tools.list_ports.comports())
         for p in ports:
             print(p)
+
+    # LIST PORTS FUNCTION
+
+    def list_com_ports(self):
+        ports = serial.tools.list_ports.comports()
+        port_names = [port.device for port in ports]
+        return port_names
+
+    def refresh_ports(self):
+        self.serial_port_dropdown.clear()  # Assure it is initialized
+        ports = serial.tools.list_ports.comports()
+        
+        if not ports: 
+            self.serial_port_dropdown.addItem("No COM ports available")
+            self.serial_port_dropdown.setEnabled(False)
+        else:
+            self.serial_port_dropdown.setEnabled(True)
+            for port in ports:
+                # Add port with description as tooltip
+                port_info = f"{port.device} - {port.description}"
+                self.serial_port_dropdown.addItem(port_info)
+                tooltip = f"Device: {port.device}\nDescription: {port.description}"
+                if port.manufacturer:
+                    tooltip += f"\nManufacturer: {port.manufacturer}"
+                if port.product:
+                    tooltip += f"\nProduct: {port.product}"
+                self.serial_port_dropdown.setItemData(self.serial_port_dropdown.count() - 1, tooltip, Qt.ToolTipRole)
+
+    def get_current_port(self):
+        # Get the currently selected port name only
+        text = self.serial_port_dropdown.currentText()
+        if text != "No COM ports available":
+            return text.split(" - ")[0]
+        return None
 
     def btn_clicked(self):
         # GET BT CLICKED

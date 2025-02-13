@@ -331,7 +331,6 @@ class SetupMainWindow:
         # Add the frames to the top layout
         self.top_layout.addWidget(self.left_frame)
 
-
         #CREATING TOP ROW01
         self.top_row01 = QHBoxLayout()
         self.top_row01.setObjectName(u"row_1_layout")
