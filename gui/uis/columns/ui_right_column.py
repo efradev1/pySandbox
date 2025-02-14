@@ -138,7 +138,7 @@ class Ui_RightColumn(object):
         # self.verticalLayout.insertWidget(1, self.frame_01)
         
         # Set fixed height if needed
-        self.frame_01.setFixedHeight(230)
+        self.frame_01.setFixedHeight(200)
 
         # Add frame 1 to the layout
         self.verticalLayout.addWidget(self.frame_01)
@@ -152,7 +152,7 @@ class Ui_RightColumn(object):
         self.frame_02.setStyleSheet("border: 1px solid white;")
 
         # Set fixed height if needed
-        self.frame_02.setFixedHeight(230)
+        self.frame_02.setFixedHeight(200)
 
         # Add frame 1 to the layout
         self.verticalLayout.addWidget(self.frame_02)
