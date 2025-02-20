@@ -1,21 +1,3 @@
-# ///////////////////////////////////////////////////////////////
-#
-# BY: WANDERSON M.PIMENTA
-# PROJECT MADE WITH: Qt Designer and PySide6
-# V: 1.0.0
-#
-# This project can be used freely for all uses, as long as they maintain the
-# respective credits only in the Python scripts, any information in the visual
-# interface (GUI) can be modified without any implication.
-#
-# There are limitations on Qt licenses if you want to use your products
-# commercially, I recommend reading them on the official website:
-# https://doc.qt.io/qtforpython/licenses.html
-#
-# ///////////////////////////////////////////////////////////////
-
-# IMPORT PACKAGES AND MODULES
-# ///////////////////////////////////////////////////////////////
 from gui.widgets.py_table_widget.py_table_widget import PyTableWidget
 from main import MainWindow
 from . functions_main_window import *
@@ -355,45 +337,134 @@ class SetupMainWindow:
         #Connecting the toggle with a function
         self.toggle_button.clicked.connect(self.packman)
 
-
         #CREATING TOP ROW02
         self.top_row02 = QHBoxLayout()
         self.top_row02.setObjectName(u"row_2_layout")
+
         #ADDING THE TOP ROW TO THE LEFT FRAME LAYOUT
         self.left_frame_layout.addLayout(self.top_row02)
 
-        # SERIAL PORT DROPDOWN
-        self.serial_port_dropdown = PySerialDropDown(
-            radius = 8,
-            border_size = 2,
-            color = self.themes["app_color"]["text_foreground"],
-            selection_color = self.themes["app_color"]["white"],
-            bg_color = self.themes["app_color"]["dark_one"],
-            bg_color_active = self.themes["app_color"]["dark_three"],
-            context_color = self.themes["app_color"]["context_color"]
-        )
-        # Populate the dropdown with available COM ports
-        #self.serial_port_dropdown.connect(self.list_com_ports)
-        #self.serial_port_dropdown.add_items()
+        #Label for Motor 1
+        self.label_motor1 = QLabel("Motor 1:")
+        self.label_motor1.setObjectName(u"label_motor1")
+        font = QFont()
+        font.setPointSize(16)
+        self.label_motor1.setFont(font)
+        self.label_motor1.setStyleSheet(u"color: white; font-size: 20px;")
+        self.label_motor1.setAlignment(Qt.AlignLeft)
+        #Adding the label to box 2
+        self.top_row02.addWidget(self.label_motor1)
 
-        # Add refresh button for serial ports
-        self.refresh_ports_btn = PyPushButton(
-            text="Refresh Ports",
-            radius=8,
-            color=self.themes["app_color"]["text_foreground"],
-            bg_color=self.themes["app_color"]["dark_one"],
-            bg_color_hover=self.themes["app_color"]["dark_three"],
-            bg_color_pressed=self.themes["app_color"]["dark_four"]
-        )
-        self.refresh_ports_btn.setMaximumHeight(40)
-        #self.refresh_ports_btn.clicked.connect(self.serial_port_dropdown.refresh_ports)
+        #Label for motor status
+        self.label_motor_status = QLabel("Disconnected")
+        self.label_motor_status.setObjectName(u"label_motor1")
+        font = QFont()
+        font.setPointSize(16)
+        self.label_motor_status.setFont(font)
+        self.label_motor_status.setStyleSheet(u"color: white; font-size: 20px;")
+        self.label_motor_status.setAlignment(Qt.AlignRight)
+        #Adding the label to box 2
+        self.top_row02.addWidget(self.label_motor_status)
 
-        # ADD TOGGLE, DROPDOWN AND REFRESH BUTTON TO LEFT FRAME
-        self.top_row02.addWidget(self.serial_port_dropdown)
-        self.top_row02.addWidget(self.refresh_ports_btn)
+        # /////////////////////////
+        # Create frame 1 for error and encoder box and labels
+        self.frame_01 = QFrame()
+        self.frame_01.setFrameShape(QFrame.StyledPanel)
+        self.frame_01.setFrameShadow(QFrame.Raised)
+        self.frame_01_layout = QVBoxLayout()  # Changed to QVBoxLayout for vertical arrangement
+        self.frame_01.setLayout(self.frame_01_layout)
+        #self.frame_01.setStyleSheet("border: 1px solid white;")
+
+        # Set fixed height if needed
+        self.frame_01.setFixedHeight(100)
+
+        # Create labels for Error and Encoder 1
+        self.label_error1 = QLabel("Error: ")
+        self.label_error1.setObjectName(u"label_error1")
+        self.label_error1.setFont(font)
+        self.label_error1.setStyleSheet(u"color: white; font-size: 20px;")
+        self.label_error1.setAlignment(Qt.AlignLeft)
+        self.label_error1.setFixedHeight(30)
+
+        self.label_encoder1 = QLabel("Encoder: ")
+        self.label_encoder1.setObjectName(u"label_encoder1")
+        self.label_encoder1.setFont(font)
+        self.label_encoder1.setStyleSheet(u"color: white; font-size: 20px;")
+        self.label_encoder1.setAlignment(Qt.AlignLeft)
+        self.label_encoder1.setFixedHeight(30)
+
+        # Add labels to frame_01
+        self.frame_01_layout.addWidget(self.label_error1)
+        self.frame_01_layout.addWidget(self.label_encoder1)
+
+        # Add frame 1 to the layout
+        self.left_frame_layout.addWidget(self.frame_01)
 
         # Set alignment for the widgets in the horizontal layout
         self.left_frame_layout.setAlignment(Qt.AlignTop | Qt.AlignLeft)
+
+        #CREATING TOP ROW03
+        self.top_row03 = QHBoxLayout()
+        self.top_row03.setObjectName(u"row_2_layout")
+
+        #ADDING THE TOP ROW TO THE LEFT FRAME LAYOUT
+        self.left_frame_layout.addLayout(self.top_row03)
+
+        #Label for Motor 2
+        self.label_motor2 = QLabel("Motor 2:")
+        self.label_motor2.setObjectName(u"label_motor2")
+        font = QFont()
+        font.setPointSize(16)
+        self.label_motor2.setFont(font)
+        self.label_motor2.setStyleSheet(u"color: white; font-size: 20px;")
+        self.label_motor2.setAlignment(Qt.AlignLeft)
+
+        #Adding the label to box 3
+        self.top_row03.addWidget(self.label_motor2)
+
+        #Label for motor status
+        self.label_motor_status = QLabel("Disconnected")
+        self.label_motor_status.setObjectName(u"label_motor2")
+        font = QFont()
+        font.setPointSize(16)
+        self.label_motor_status.setFont(font)
+        self.label_motor_status.setStyleSheet(u"color: white; font-size: 20px;")
+        self.label_motor_status.setAlignment(Qt.AlignRight)
+        #Adding the label to box 3
+        self.top_row03.addWidget(self.label_motor_status)
+
+        # Create frame 2 for error and encoder box and labels
+        self.frame_02 = QFrame()
+        self.frame_02.setFrameShape(QFrame.StyledPanel)
+        self.frame_02.setFrameShadow(QFrame.Raised)
+        self.frame_02_layout = QVBoxLayout()  # Changed to QVBoxLayout for vertical arrangement
+        self.frame_02.setLayout(self.frame_02_layout)
+        #self.frame_02.setStyleSheet("border: 1px solid white;")
+
+        # Set fixed height if needed
+        self.frame_02.setFixedHeight(100)
+
+        # Create labels for Error and Encoder 2
+        self.label_error2 = QLabel("Error: ")
+        self.label_error2.setObjectName(u"label_error2")
+        self.label_error2.setFont(font)
+        self.label_error2.setStyleSheet(u"color: white; font-size: 20px;")
+        self.label_error2.setAlignment(Qt.AlignLeft)
+        self.label_error2.setFixedHeight(30)
+
+        self.label_encoder2 = QLabel("Encoder:")
+        self.label_encoder2.setObjectName(u"label_encoder2")
+        self.label_encoder2.setFont(font)
+        self.label_encoder2.setStyleSheet(u"color: white; font-size: 20px;")
+        self.label_encoder2.setAlignment(Qt.AlignLeft)
+        self.label_encoder2.setFixedHeight(30)
+
+        # Add labels to frame_01
+        self.frame_02_layout.addWidget(self.label_error2)
+        self.frame_02_layout.addWidget(self.label_encoder2)
+
+        # Add frame 2 to the layout
+        self.left_frame_layout.addWidget(self.frame_02)
 
         ############ PAGE 1 RIGHT FRAME ############
 

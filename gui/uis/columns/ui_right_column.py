@@ -1,21 +1,5 @@
-# ///////////////////////////////////////////////////////////////
-#
-# BY: WANDERSON M.PIMENTA
-# PROJECT MADE WITH: Qt Designer and PySide6
-# V: 1.0.0
-#
-# This project can be used freely for all uses, as long as they maintain the
-# respective credits only in the Python scripts, any information in the visual
-# interface (GUI) can be modified without any implication.
-#
-# There are limitations on Qt licenses if you want to use your products
-# commercially, I recommend reading them on the official website:
-# https://doc.qt.io/qtforpython/licenses.html
-#
-# ///////////////////////////////////////////////////////////////
-
-# IMPORT QT CORE
-# ///////////////////////////////////////////////////////////////
+from gui.widgets.py_push_button.py_push_button import PyPushButton
+from gui.widgets.py_serial_dropdown.py_serial_dropdown import PySerialDropDown
 from gui.widgets.py_toggle.py_toggle import PyToggle
 from qt_core import *
 
@@ -26,7 +10,6 @@ from gui.core.json_settings import Settings
 # IMPORT THEME COLORS
 # ///////////////////////////////////////////////////////////////
 from gui.core.json_themes import Themes
-
 
 class Ui_RightColumn(object):
     def setupUi(self, RightColumn):
@@ -46,6 +29,8 @@ class Ui_RightColumn(object):
         self.verticalLayout.setSpacing(5)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(5, 5, 5, 5)
+
+        #Button 1 widget
         self.btn_1_widget = QWidget(self.menu_1)
         self.btn_1_widget.setObjectName(u"btn_1_widget")
         self.btn_1_widget.setMinimumSize(QSize(0, 40))
@@ -54,9 +39,93 @@ class Ui_RightColumn(object):
         self.btn_1_layout.setSpacing(0)
         self.btn_1_layout.setObjectName(u"btn_1_layout")
         self.btn_1_layout.setContentsMargins(0, 0, 0, 0)
-
         self.verticalLayout.addWidget(self.btn_1_widget)
 
+        # BOX2 for motor 1 label
+        self.box02 = QHBoxLayout()
+        self.box02.setObjectName(u"box_2_layout")
+
+        # SERIAL PORT DROPDOWN 1
+        self.serial_port_dropdown1 = PySerialDropDown(
+            radius = 8,
+            border_size = 2,
+            color = self.themes["app_color"]["text_foreground"],
+            selection_color = self.themes["app_color"]["white"],
+            bg_color = self.themes["app_color"]["dark_one"],
+            bg_color_active = self.themes["app_color"]["dark_three"],
+            context_color = self.themes["app_color"]["context_color"]
+        )
+
+        # Create refresh button for serial ports 1
+        self.refresh_ports_btn1 = PyPushButton(
+            text="Refresh Ports",
+            radius=8,
+            color=self.themes["app_color"]["text_foreground"],
+            bg_color=self.themes["app_color"]["dark_one"],
+            bg_color_hover=self.themes["app_color"]["dark_three"],
+            bg_color_pressed=self.themes["app_color"]["dark_four"]
+        )
+        self.refresh_ports_btn1.setMaximumHeight(40)
+
+        # Connect the refresh button to the refresh_ports method
+        self.refresh_ports_btn1.clicked.connect(self.serial_port_dropdown1.refresh_ports)
+
+        # ADD WIDGETS TO BOX2
+        self.box02.addWidget(self.serial_port_dropdown1)
+        self.box02.addWidget(self.refresh_ports_btn1)
+        self.box02.setAlignment(Qt.AlignTop)
+
+        # Add box2 to vertical layout
+        self.verticalLayout.addLayout(self.box02)
+
+        # BOX3 for motor 2 label
+        self.box03 = QHBoxLayout()
+        self.box03.setObjectName(u"box_3_layout")
+
+        # SERIAL PORT DROPDOWN 2
+        self.serial_port_dropdown2 = PySerialDropDown(
+            radius = 8,
+            border_size = 2,
+            color = self.themes["app_color"]["text_foreground"],
+            selection_color = self.themes["app_color"]["white"],
+            bg_color = self.themes["app_color"]["dark_one"],
+            bg_color_active = self.themes["app_color"]["dark_three"],
+            context_color = self.themes["app_color"]["context_color"]
+        )
+
+        # Create refresh button for serial ports 2
+        self.refresh_ports_btn2 = PyPushButton(
+            text="Refresh Ports",
+            radius=8,
+            color=self.themes["app_color"]["text_foreground"],
+            bg_color=self.themes["app_color"]["dark_one"],
+            bg_color_hover=self.themes["app_color"]["dark_three"],
+            bg_color_pressed=self.themes["app_color"]["dark_four"]
+        )
+        self.refresh_ports_btn2.setMaximumHeight(40)
+
+        # Connect the refresh button to the refresh_ports method
+        self.refresh_ports_btn2.clicked.connect(self.serial_port_dropdown2.refresh_ports)  # Corregido de btn1 a btn2
+
+        # ADD WIDGETS TO BOX3
+        self.box03.addWidget(self.serial_port_dropdown2)
+        self.box03.addWidget(self.refresh_ports_btn2)
+        self.box03.setAlignment(Qt.AlignTop)
+
+        # Add box3 to vertical layout
+        self.verticalLayout.addLayout(self.box03)
+
+        # Add label_1 after both boxes
+        self.label_1 = QLabel(self.menu_1)
+        self.label_1.setObjectName(u"label_1")
+        font = QFont()
+        font.setPointSize(16)
+        self.label_1.setFont(font)
+        self.label_1.setStyleSheet(u"font-size: 16pt")
+        self.label_1.setAlignment(Qt.AlignCenter)
+        self.verticalLayout.addWidget(self.label_1)
+
+        #Label for menu1   
         self.label_1 = QLabel(self.menu_1)
         self.label_1.setObjectName(u"label_1")
         font = QFont()
@@ -66,97 +135,6 @@ class Ui_RightColumn(object):
         self.label_1.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.label_1)
-
-        # /////////////////////////
-        #Box1 for Toggle and label "Arm"
-        self.box01 = QHBoxLayout()
-        self.box01.setObjectName(u"box_1_layout")
-        #Adding box 1 to vertical layout
-        self.verticalLayout.addLayout(self.box01)
-
-        # TOGGLE BUTTON
-        self.toggle_button = PyToggle(
-            width = 50,
-            bg_color = self.themes["app_color"]["dark_two"],
-            circle_color = self.themes["app_color"]["icon_color"],
-            active_color = self.themes["app_color"]["context_color"]
-        )
-        text_label = QLabel("Arm")
-        text_label.setStyleSheet("color: white; font-size: 20px;")
-        text_label.setAlignment(Qt.AlignTop | Qt.AlignLeft)
-
-        # Add widgets to Box1
-        self.box01.addWidget(self.toggle_button)
-        self.box01.addWidget(text_label)
-
-        # /////////////////////////
-
-        # /////////////////////////
-        #BOX2 for motor 1 label
-        self.box02 = QHBoxLayout()
-        self.box02.setObjectName(u"box_2_layout")
-
-        #Adding box 2 to vertical layout
-        self.verticalLayout.addLayout(self.box02)
-
-        #Label for Motor 1
-        self.label_motor1 = QLabel("Motor 1:")
-        self.label_motor1.setObjectName(u"label_motor1")
-        font = QFont()
-        font.setPointSize(16)
-        self.label_motor1.setFont(font)
-        self.label_motor1.setStyleSheet(u"color: white; font-size: 20px;")
-        self.label_motor1.setAlignment(Qt.AlignLeft)
-        #Adding the label to box 2
-        self.box02.addWidget(self.label_motor1)
-
-        #Label for motor status
-        self.label_motor_status = QLabel("Disconnected")
-        self.label_motor_status.setObjectName(u"label_motor1")
-        font = QFont()
-        font.setPointSize(16)
-        self.label_motor_status.setFont(font)
-        self.label_motor_status.setStyleSheet(u"color: white; font-size: 20px;")
-        self.label_motor_status.setAlignment(Qt.AlignRight)
-        #Adding the label to box 2
-        self.box02.addWidget(self.label_motor_status)
-
-
-
-
-
-        # /////////////////////////
-        # Create frame 1
-        self.frame_01 = QFrame()
-        self.frame_01.setFrameShape(QFrame.StyledPanel)
-        self.frame_01.setFrameShadow(QFrame.Raised)
-        self.frame_01_layout = QVBoxLayout()  # You can choose QHBoxLayout or QVBoxLayout as needed
-        self.frame_01.setLayout(self.frame_01_layout)
-        self.frame_01.setStyleSheet("border: 1px solid white;")
-
-        # # Modifying the frame's position
-        # self.verticalLayout.insertWidget(1, self.frame_01)
-        
-        # Set fixed height if needed
-        self.frame_01.setFixedHeight(200)
-
-        # Add frame 1 to the layout
-        self.verticalLayout.addWidget(self.frame_01)
-
-        # Create frame 2
-        self.frame_02 = QFrame()
-        self.frame_02.setFrameShape(QFrame.StyledPanel)
-        self.frame_02.setFrameShadow(QFrame.Raised)
-        self.frame_02_layout = QVBoxLayout()  # You can choose QHBoxLayout or QVBoxLayout as needed
-        self.frame_02.setLayout(self.frame_01_layout)
-        self.frame_02.setStyleSheet("border: 1px solid white;")
-
-        # Set fixed height if needed
-        self.frame_02.setFixedHeight(200)
-
-        # Add frame 1 to the layout
-        self.verticalLayout.addWidget(self.frame_02)
-
 
         self.menus.addWidget(self.menu_1)
         self.menu_2 = QWidget()
@@ -199,11 +177,9 @@ class Ui_RightColumn(object):
 
         self.main_pages_layout.addWidget(self.menus)
 
-
         self.retranslateUi(RightColumn)
 
         self.menus.setCurrentIndex(1)
-
 
         QMetaObject.connectSlotsByName(RightColumn)
     # setupUi
@@ -215,4 +191,3 @@ class Ui_RightColumn(object):
         self.label_3.setText(QCoreApplication.translate("RightColumn", u"This is just an example menu.\n"
 "Add Qt Widgets or your custom widgets here.", None))
     # retranslateUi
-
